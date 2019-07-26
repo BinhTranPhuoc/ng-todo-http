@@ -1,0 +1,34 @@
+<div novalidate class="container custom-container-2" style="margin-top: 70px;">
+    <!-- Show it when there is no todo -->
+    <div class="no-data text-center" *ngIf="todos?.length == 0">
+      <p>There is no todo added yet!</p>
+      <button class="btn btn-outline-primary">Create todo</button>
+    </div>
+  
+    <!--list table, it hides when there is no todo -->
+    <div *ngIf="todos?.length > 0">
+      <h3 class="mb-3 text-center">List Todo</h3>
+      <div class="col-md-12">
+          <button class="btn btn-outline-primary" style="float: right; margin-bottom: 10px;" [routerLink]="['/todo-create']">Create todo</button>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Title</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let todo of todos">
+              <td>{{todo.id}}</td>
+              <td>{{todo.title}}</td>
+              <td>
+                <button class="btn btn-primary" [routerLink]="['/todo-details/', todo.id]" style="margin: 5px;">Details</button>
+                <button class="btn btn-danger" (click)="deleteTodo(todo.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
