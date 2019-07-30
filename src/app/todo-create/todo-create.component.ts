@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../service/rest-api.spec';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { todo } from '../shared/todo-model';
 // import { ToastsManager } from '../common/toast-manager';
 
 @Component({
@@ -9,7 +11,11 @@ import { TodoService } from '../service/rest-api.spec';
   styleUrls: ['./todo-create.component.css']
 })
 export class TodoCreateComponent implements OnInit {
-  @Input() addtodo = { title: '', description:'', status: '' }
+  
+  form: FormGroup;
+  lstStatus = ['Open', 'Inprogress', 'Resolve', 'Closed'];
+  // @Input() todo = { title: '', description: '', status:'' };
+  todo = { title: 'aa', description: '', status: '' };
   constructor(
     private todoService: TodoService, 
     private router: Router,
@@ -17,18 +23,24 @@ export class TodoCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+    })
   }
 
   addTodo() {
     debugger;
-    this.todoService.createTodo(this.addtodo).subscribe(
-      result => {
-        if (result) {
-          // this.toastManager.success('A todo add successfully!')
-          this.router.navigate['/todo-list'];
+    if (this.form.valid) {
+      this.todoService.createTodo(this.todo).subscribe(
+        result => {
+          if (result) {
+            // this.toastManager.success('A todo add successfully!')
+            this.router.navigate(['/todo-list']);
+          }
         }
-      }
-    )
+      )
+    }
   }
 
 }

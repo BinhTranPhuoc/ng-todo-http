@@ -1,37 +1,52 @@
 <div class="container custom-container">
-    <form (submit)="addTodo()" [formGroup]="form">
+    <form [formGroup]="form">
         <div class="row" style="margin-top: 100px;">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                    <h3 class="mb-3 text-center">Create Todo</h3>
-                
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Title" formControlName="title">
-                        <div class="alert alert-danger" *ngIf="form.controls.title?.errors.required 
-                                                                && form.controls.title?.touched"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h3 class="mb-3 text-center">Create Todo</h3>
+            
+                <div class="form-group row">
+                    <label for="title" class="col-md-2">Title</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" formControlName="title" [(ngModel)]="todo.title">
+                        <!-- <div class="alert alert-danger" *ngIf="form.controls.title?.errors.required 
+                                                                && form.controls.title?.touched && form.submitted"> Title is required!</div> -->
                     </div>
-                
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Description" formControlName="description">
-                        <div class="alert alert-danger" *ngIf="form.controls.description?.errors.required 
-                                                                && form.controls.description?.touched"></div>
+                </div>
+            
+                <div class="form-group row">
+                    <label class="col-md-2">Description</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" formControlName="description" [(ngModel)]="todo.description">
+                        <!-- <div class="alert alert-danger" *ngIf="form.controls.description?.errors.required 
+                                                                && form.controls.description?.touched && form.submitted">Description is required!</div> -->
                     </div>
-                
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option value="Open" selected>Open</option>
-                            <option value="Inprogress">Inprogress</option>
-                            <option value="Resolve">Resolve</option>
-                            <option value="Closed">Closed</option>
+                </div>
+            
+                <div class="form-group row">
+                    <label for="status" class="col-md-2">Status</label>
+                    <div class="col-md-10">
+                        <select name="status" class="form-control" [(ngModel)]="todo.status">
+                            <!-- <option [ngValue]="undefined" selected>Select</option> -->
+                            <option *ngFor="let st of lstStatus">{{st}}</option>
+                            <!-- <option [ngValue]="undefined" selected>Select</option>
+                            <option [ngValue]="Open" >Open</option>
+                            <option [ngValue]="Inprogress">Inprogress</option>
+                            <option [ngValue]="Resolve">Resolve</option>
+                            <option [ngValue]="Closed">Closed</option> -->
                         </select>
                     </div>
-                
-                    <div class="form-group">
-                    <button class="btn btn-success btn-lg btn-block" type="submit">Create</button>
+                </div>
+            
+                <div class="form-group row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-lg btn-block" type="submit" (click)="addTodo()">Create todo</button>
                     </div>
-                
+                    <div class="col-md-2"></div>
+                </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
         
     </form>

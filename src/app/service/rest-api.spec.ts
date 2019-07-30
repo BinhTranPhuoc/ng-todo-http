@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { todo } from '../shared/todo-model';
 import { CONFIG } from '../core/config';
@@ -13,6 +13,13 @@ export class TodoService {
   constructor(
     private http: HttpClient,
   ) {}
+
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }  
 
   getAllTodo(): Observable<todo[]> {
     const result = this.http.get<todo[]>(CONFIG.RootApi + '/todo')
@@ -33,8 +40,8 @@ export class TodoService {
     return result;
   }
 
-  createTodo(todo) {
-    const result = this.http.post<todo>(CONFIG.RootApi + '/todo', JSON.stringify(todo))
+  createTodo(todo): Observable<todo> {
+    const result = this.http.post<todo>(CONFIG.RootApi + '/todo', JSON.stringify(todo), this.httpOptions)
     .pipe(retry(1), catchError(this.handleError));
     return result;
   }

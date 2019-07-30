@@ -3,7 +3,7 @@ import { TodoService } from '../service/rest-api.spec';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Title } from '@angular/platform-browser';
 import { todo } from '../shared/todo-model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-details',
@@ -17,6 +17,7 @@ export class TodoDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private todoService: TodoService, 
     private titleService: Title,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -36,6 +37,10 @@ export class TodoDetailsComponent implements OnInit {
         }
       }
     )
+  }
+
+  onBack() {
+    this.router.navigate(['/todo-list']);
   }
 
 }

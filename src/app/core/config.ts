@@ -1,6 +1,6 @@
 
 export const CONFIG = {
-    RootApi: 'http://localhost:3000',
+    RootApi: 'http://localhost:9000',
     
 
     // ApiUrls: {
