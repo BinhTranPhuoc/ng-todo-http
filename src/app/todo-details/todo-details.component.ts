@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TodoDetailsComponent implements OnInit {
 
-  todo: todo;
+  todoDetails: todo;
   constructor(
     private route: ActivatedRoute,
     private todoService: TodoService, 
@@ -22,18 +22,19 @@ export class TodoDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Todo-details');
-    this.todo = new todo();
+    this.todoDetails = new todo();
     this.route.paramMap.subscribe(params => {
-      this.todo.id = params.get('id');
+      this.todoDetails.id = params.get('id');
     })
-    this.gettodo();
+    this.getTodo();
   }
 
-  gettodo() {
-    this.todoService.getTodo(this.todo.id).subscribe(
+  getTodo() {
+    debugger
+    this.todoService.getTodoDetails(this.todoDetails.id).subscribe(
       result => {
-        if (result) {
-          this.todo = result;
+        if (result != null) {
+          this.todoDetails = result;
         }
       }
     )

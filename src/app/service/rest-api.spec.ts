@@ -27,7 +27,7 @@ export class TodoService {
     return result;
   }
 
-  getTodo(id: string): Observable<todo> {
+  getTodoDetails(id: string): Observable<todo> {
     const param = '?id=' + id; 
     const result = this.http.get<todo>(CONFIG.RootApi + '/todo/' + param)
     .pipe(retry(1), catchError(this.handleError));
@@ -42,6 +42,12 @@ export class TodoService {
 
   createTodo(todo): Observable<todo> {
     const result = this.http.post<todo>(CONFIG.RootApi + '/todo', JSON.stringify(todo), this.httpOptions)
+    .pipe(retry(1), catchError(this.handleError));
+    return result;
+  }
+
+  updateTodo(id: string, todo): Observable<todo> {
+    const result = this.http.put<todo>(CONFIG.RootApi + '/todo/' + id, JSON.stringify(todo), this.httpOptions)
     .pipe(retry(1), catchError(this.handleError));
     return result;
   }

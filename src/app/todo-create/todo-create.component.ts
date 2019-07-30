@@ -15,7 +15,7 @@ export class TodoCreateComponent implements OnInit {
   form: FormGroup;
   lstStatus = ['Open', 'Inprogress', 'Resolve', 'Closed'];
   // @Input() todo = { title: '', description: '', status:'' };
-  todo = { title: 'aa', description: '', status: '' };
+  todo = { title: '', description: '', status: '' };
   constructor(
     private todoService: TodoService, 
     private router: Router,
@@ -26,6 +26,7 @@ export class TodoCreateComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
+      status: new FormControl(''),
     })
   }
 
